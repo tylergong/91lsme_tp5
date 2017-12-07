@@ -1,0 +1,41 @@
+{extend name='base'/}
+{block name='content'}
+<article>
+    <div class="_head category_title">
+        <h2>{$headData['title']}：{$headData['name']}</h2>
+        <span>共 {$headData['total']} 篇文章</span>
+    </div>
+</article>
+{foreach name='articleData' key='k' item='v'}
+<article>
+    <div class="_head">
+        <h1>{$v['title']}</h1>
+        <span>作者：{$v['author']}</span>
+        •
+        <time pubdate="pubdate" datetime="{$v['create_time']}">{$v['create_time']}</time>
+        •
+        分类：
+        <a href="{:url('index/lists/index',['cate_id'=>$v['cid']])}">{$v['cname']}</a>
+        •
+        <span>阅读次数：{$v['click_num']}</span>
+    </div>
+    <div class="_digest">
+        {if condition="$v['thumb'] neq ''"}
+        <img src="__STATIC__/index/images/1.jpg" class="img-responsive"/>
+        {/if}
+        <p>
+            {$v['digest']}
+        </p>
+    </div>
+    <div class="_more">
+        <a href="{:url('index/content/index',['id'=>$v['id']])}" class="btn btn-default">阅读全文</a>
+    </div>
+    <div class="_footer">
+        <i class="glyphicon glyphicon-tags"></i>
+        {foreach name="v['tags']" key='kk' item='vv'}
+        <a href="{:url('index/lists/index',['tag_id'=>$vv['tag_id']])}">{$vv['tag_name']}</a>、
+        {/foreach}
+    </div>
+</article>
+{/foreach}
+{/block}

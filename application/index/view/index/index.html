@@ -1,0 +1,66 @@
+{extend name='base'/}
+{block name='content'}
+<article class="_carousel">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="__STATIC__/index/images/1.jpg">
+            </div>
+            <div class="item">
+                <img src="__STATIC__/index/images/2.jpg">
+            </div>
+            <div class="item">
+                <img src="__STATIC__/index/images/3.jpg">
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+    </div>
+</article>
+{foreach name='articleData' key='k' item='v'}
+<article>
+    <div class="_head">
+        <h1>{$v['title']}</h1>
+        <span>作者：{$v['author']}</span>
+        •
+        <time pubdate="pubdate" datetime="{$v['create_time']}">{$v['create_time']}</time>
+        •
+        分类：
+        <a href="{:url('index/lists/index',['cate_id'=>$v['cid']])}">{$v['cname']}</a>
+        •
+        <span>阅读次数：{$v['click_num']}</span>
+    </div>
+    <div class="_digest">
+        {if condition="$v['thumb'] neq ''"}
+        <img src="__STATIC__/index/images/1.jpg" class="img-responsive"/>
+        {/if}
+        <p>
+            {$v['digest']}
+        </p>
+    </div>
+    <div class="_more">
+        <a href="{:url('index/content/index',['id'=>$v['id']])}" class="btn btn-default">阅读全文</a>
+    </div>
+    <div class="_footer">
+        <i class="glyphicon glyphicon-tags"></i>
+        {foreach name="v['tags']" key='kk' item='vv'}
+        <a href="{:url('index/lists/index',['tag_id'=>$vv['tag_id']])}">{$vv['tag_name']}</a>、
+        {/foreach}
+    </div>
+</article>
+{/foreach}
+{/block}

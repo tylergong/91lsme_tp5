@@ -1,0 +1,35 @@
+{extend name='base'/}
+{block name='content'}
+<style>
+    img {
+        width: 100%;
+    }
+    section main article ._digest pre {
+        text-align:left;
+    }
+</style>
+<article>
+    <div class="_head">
+        <h1>{$articleData['title']}</h1>
+        <span>作者：<a href="">{$articleData['author']}</a></span>
+        •
+        <time pubdate="pubdate" datetime="{$articleData['create_time']}">{$articleData['create_time']}</time>
+        •
+        分类：
+        <a href="{:url('index/lists/index',['cate_id'=>$articleData['cid']])}">{$articleData['cname']}</a>
+        •
+        <span>阅读次数：{$articleData['click_num']}</span>
+    </div>
+    <div class="_digest">
+        <p>
+            {$articleData['content']}
+        </p>
+    </div>
+    <div class="_footer">
+        <i class="glyphicon glyphicon-tags"></i>
+        {foreach name="$articleData['tags']" key='kk' item='vv'}
+        <a href="{:url('index/lists/index',['tag_id'=>$vv['tag_id']])}">{$vv['tag_name']}</a>、
+        {/foreach}
+    </div>
+</article>
+{/block}

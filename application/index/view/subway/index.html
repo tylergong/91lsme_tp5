@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>全国地铁换乘线路查询</title>
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            height: 100%
+        }
+
+        img {
+            width: 100%
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        #btnjs {
+            color: #FFF;
+            background-color: #06c3fd;
+            height: 40px;
+            line-height: 40px;
+            width: 90%;
+            border: 0;
+            border-radius: 4px;
+            font-size: 22px
+        }
+
+        .row {
+            line-height: 30px;
+            padding: 0;
+            margin: 5px 0
+        }
+
+        .red {
+            color: #F00
+        }
+
+        .footer {
+            width: 100%;
+            padding: 20px 0;
+            font-size: 14px;
+            color: #555;
+            text-align: center
+        }
+    </style>
+    <script type="text/javascript">
+        var url = "http://www.91lsme.com/subway/";
+        var title = "地铁涨价了！快找一条更省钱的线路吧，骚年们！！";
+        var content = "那条线路更适合你呢，查查就知道了。赶快动动你们的手指吧，还有意想不到的奇葩线路哦~！";
+        var shareimg = "http://www.91lsme.com/static/index/subway/images/title2.jpg";
+    </script>
+    <script type="text/javascript" src="__STATIC__/index/subway/js/tt.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<div class="headerimg">{if $platform eq 'pc'}{else}<img src="__STATIC__/index/subway/images/title1.png">{/if}</div>
+<div class="row">
+    <label>切换城市：</label>
+    <!-- {foreach name='res_city' key='k' item='v'} -->
+    <span>[ <a href="{:url('index/subway/index',['cid'=>$v['cid']])}" {if $cid eq $v['cid']}class='red'{/if}>{$v['city']}</a>
+        ]</span>
+    <!-- {/foreach} -->
+</div>
+<div class="row">
+    <label>起点：</label>
+    <select id="start_line" onchange="change_start_line(this)">
+        <option value=0>--请选择起始线路--</option>
+        <!-- {foreach name='res_line' key='k' item='v'} -->
+        <option value={$k}>{$v}</option>
+        <!-- {/foreach} -->
+    </select>
+    <select id="start_site">
+        <option value=0>--请选择起始站点--</option>
+    </select>
+</div>
+<div class="row">
+    <label>终点：</label>
+    <select id="end_line" onchange="change_end_line(this)">
+        <option value=0>--请选择终点线路--</option>
+        <!-- {foreach name='res_line' key='k' item='v'} -->
+        <option value={$k}>{$v}</option>
+        <!-- {/foreach} -->
+    </select>
+    <select id="end_site">
+        <option value=0>--请选择终点站点--</option>
+    </select>
+</div>
+<input id="btnjs" type="button" value="提交查询" onclick="query_line()"/>
+<div class="row">
+    <div id="resText"></div>
+</div>
+<div class="footer">91lsme就要听我说 |
+    Copyright © 2013-2017 <a href="http://www.91lsme.com" target="_blank">www.91lsme.com</a> All rights reserved. |
+    <a href="http://www.miitbeian.gov.cn/" target="_blank">京ICP备 14059724号</a> |
+    tylergong@163.com
+</div>
+<div style="display: none;">
+    <script type="text/javascript" src="__STATIC__/index/subway/js/subway.js"></script>
+</div>
+<div style="display: none;">
+    <script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4e12425c4f2ca16acaab6b2a8cdc8fbc' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+</body>
+</html>

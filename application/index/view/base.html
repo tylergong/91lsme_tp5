@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>{$_webSet['title']}-{$_headConf['title']}</title>
+    <!--描述和摘要-->
+    <meta name="Description" content="{$_webSet['description']}"/>
+    <meta name="Keywords" content="{$_webSet['keywords']}"/>
+    <!--载入公共模板-->
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="__STATIC__/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/org/bootstrap-3.3.5-dist/css/bootstrap.min.css"/>
+    <script src="__STATIC__/index/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__STATIC__/index/org/bootstrap-3.3.5-dist/js/bootstrap.min.js" type="text/javascript"
+            charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/backTop.css"/>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1>{$_webSet['title']}</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<nav role="navigation" class="navbar navbar-default">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="navbar-header">
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#example-navbar-collapse">
+
+                        <span class="sr-only">切换导航</span>
+
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+
+                <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                    <ul class="_menu">
+                        <li {if condition="!input('param.cate_id')"}class="_active"{/if}><a href="{:url('/')}">首页</a></li>
+                        {foreach name='_cateData' key='k' item='v'}
+                        <li {if condition="input('param.cate_id')==$v['id']"}class="_active"{/if}><a href="{:url('index/lists/index',['cate_id'=>$v['id']])}">{$v['cname']}</a></li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<section>
+    <div class="container">
+        <div class="row">
+            <!--标签规定文档的主要内容main-->
+            <main class="col-md-8">
+                {block name='content'}{/block}
+            </main>
+            <aside class="col-md-4 hidden-sm hidden-xs">
+                <div class="_widget">
+                    <h4>关于91lsme</h4>
+                    <div class="_info">
+                        <p>经过很长时间奋战，就要听我说个人网终于建成，还有很多不成熟和欠缺的地方 ，希望大家多多支持和提出好的建议！以后会做的更好 ……</p>
+                        <p>
+                            <i class="glyphicon glyphicon-volume-down"></i>
+                            <a href="http://www.91lsme.com" target="_blank">91lsme</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="_widget">
+                    <h4>分类列表</h4>
+                    <div>
+                        {foreach name='_allCateData' key='k' item='v'}
+                        <a href="{:url('index/lists/index',['cate_id'=>$v['id']])}">{$v['cname']}</a>
+                        {/foreach}
+                    </div>
+                </div>
+                <div class="_widget">
+                    <h4>标签云</h4>
+                    <div class="_tag">
+                        {foreach name='_tagData' key='k' item='v'}
+                        <a href="{:url('index/lists/index',['tag_id'=>$v['id']])}">{$v['tag_name']}</a>
+                        {/foreach}
+                    </div>
+                </div>
+                <div class="_widget">
+                    <h4>听我说微信公众号</h4>
+                    <div class="_tag">
+                        <div style="text-align: center"><img src="__STATIC__/index/images/qrcode.png" width="200"/></div>
+                        扫码关注【<b>听我说</b>】微信公众账号或直接添加【<b>listenme1986</b>】<br/>
+                        --------------------------<br/>
+                        想查<b>天气</b>？回复【天气@城市名】既可。天气状况就能跃然眼前哦~~！<br/><br/>
+                        想查<b>附近</b>？回复【附近@目标关键词】既可。帮你搜索附近5公里的目标哦~~！<br/><br/>
+                        想查<b>快递</b>？回复【快递@快递单号】即可。方便又快捷~~！<br/><br/>
+                        想查<b>地铁</b>？直接回复【地铁】~~总能查到方便又可靠的行程路线~~！<br/><br/>
+                        【隐藏功能】上传你一张您的头像或者是您和他人的合照头像试试吧~~~~~<br/>
+                        --------------------------<br/>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+    </div>
+</section>
+<footer class="hidden-xs">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h4 class="_title">最新文章</h4>
+                {foreach name='_articleData' key='k' item='v'}
+                <div id="" class="_single">
+                    <p><a href="{:url('index/content/index',['id'=>$v['id']])}">{$v['title']}</a></p>
+                    <time>{$v['create_time']}</time>
+                </div>
+                {/foreach}
+            </div>
+            <div class="col-sm-4 footer_tag">
+                <div id="">
+                    <h4 class="_title">标签云</h4>
+                    {foreach name='_tagData' key='k' item='v'}
+                    <a href="{:url('index/lists/index',['tag_id'=>$v['id']])}">{$v['tag_name']}</a>
+                    {/foreach}
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <h4 class="_title">友情链接</h4>
+                <div id="" class="_single">
+                    {foreach name='_linkData' key='k' item='v'}
+                    <p><a href="{$v['flink']}" target="_blank">{$v['fname']}</a></p>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="footer_bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                {$_webSet['title']}
+                |
+                {$_webSet['copyright']}
+                |
+                {$_webSet['beian']}
+                |
+                {$_webSet['email']}
+            </div>
+        </div>
+    </div>
+</div>
+<!--返回顶部自己写的插件-->
+<script src="__STATIC__/index/js/backTop.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function () {
+        //插件使用
+        $('.back_top').backTop({right: 30});
+    })
+</script>
+<div class="back_top hidden-xs hidden-md">
+    <i class="glyphicon glyphicon-menu-up"></i>
+</div>
+<div style="display: none;">
+    <script type="text/javascript">
+        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4e12425c4f2ca16acaab6b2a8cdc8fbc' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+{extend name='base'/}
+{block name='content'}
+<ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
+    <li>
+        <a href=""><i class="fa fa-cogs"></i>
+            文章管理</a>
+    </li>
+    <li class="active">
+        <a href="">文章列表</a>
+    </li>
+</ol>
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#tab1">文章列表</a></li>
+    <li><a href="{:url('store')}">文章添加</a></li>
+</ul>
+<form action="" method="post">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th width="5%">编号</th>
+                    <th width="40%">标题</th>
+                    <th width="10%">作者</th>
+                    <!--<th width="8%">是否显示</th>-->
+                    <th width="8%">分类</th>
+                    <th width="8%">点击次数</th>
+                    <th width="10%">添加时间</th>
+                    <th width="10%">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach name='field' key='k' item='v'}
+                <tr>
+                    <td>{$v['id']}</td>
+                    <td>{$v['title']}</td>
+                    <td>{$v['author']}</td>
+                    <!--<td>-->
+                        <!--<input type="text" class="form-control" value="{$v['is_show']}"-->
+                               <!--onblur="changeShow(this,{$v['is_show']},{$v['id']})">-->
+                    <!--</td>-->
+                    <td>{$v['cname']}</td>
+                    <td>{$v['click_num']}</td>
+                    <td>{$v['create_time']}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span
+                                    class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="{:url('edit',['id'=>$v['id']])}">编辑</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{:url('delToRecycle',['id'=>$v['id']])}">删除到回收站</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<div class="pagination pagination-sm pull-right">
+    {$field->render()}
+</div>
+<script>
+    function changeShow(obj, old_show, id) {
+        var show = $(obj).val();
+        if (!show && old_show == show) {
+            $(obj).val(old_show);
+            return false;
+        }
+        swal({
+                title: "确定要修改文章显示状态吗？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.post("{:url('changeShow')}", {is_show: show, id: id}, function (res) {
+                        if (res.code) {
+                            swal({
+                                title: res.msg,
+                                type: "success",
+                                confirmButtonText: "知道了",
+                                closeOnConfirm: false,
+                            },function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.reload();
+                                }
+                            });
+                        } else {
+                            swal({
+                                title: res.msg,
+                                type: "error",
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "知道了",
+                                closeOnConfirm: false,
+                            },function(isConfirm){
+                                if (isConfirm) {
+                                    window.location.reload();
+                                }
+                            });
+                        }
+                    }, 'json')
+                } else {
+                    window.location.reload();
+                }
+            });
+    }
+</script>
+{/block}
