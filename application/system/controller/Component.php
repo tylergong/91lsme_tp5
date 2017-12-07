@@ -35,15 +35,16 @@ class Component extends Controller {
         // 判断是否已经上传过 [根据文件散列值判断]
         $images = Db::name('ls_attachment')->where('md5', $md5Value)->select();
         if ($images) {
-            return $images[0]['path'];
+            return ['valid' => 1, 'url' => $images[0]['path']];
         } else {
-            // 移动到框架应用根目录/public/uploads/ 目录下 [ 3M == 3145728 ]
-            $info = $file->validate(['size' => 3145728, 'ext' => 'jpg,jpeg,png'])->move(ROOT_PATH . 'public' . DS . 'uploads');
+            // 移动到框架应用根目录/uploads/ 目录下 [ 3M == 3145728 ]
+            $info = $file->validate(['size' => 3145728, 'ext' => 'jpg,jpeg,png'])->move(ROOT_PATH . 'static' . DS . 'uploads');
+            //print_r($info);die;
             if ($info) {
                 // 上传成功
                 $data = [
                     'filename' => $info->getFileName(),
-                    'path' => DS . 'uploads' . DS . $info->getSaveName(),
+                    'path' => DS . 'static' . DS . 'uploads' . DS . $info->getSaveName(),
                     'extension' => $info->getExtension(),
                     'createtime' => time(),
                     'size' => $info->getSize(),
@@ -52,7 +53,7 @@ class Component extends Controller {
                 ];
                 Db::name('ls_attachment')->insert($data);
 
-                return ['valid' => 1, 'url' => DS . 'uploads' . DS . $info->getSaveName()];
+                return ['valid' => 1, 'url' => $data['path']];
             } else {
                 // 上传失败
                 return ['valid' => 0, 'msg' => $file->getError()];
