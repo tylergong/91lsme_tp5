@@ -134,7 +134,7 @@ class WeixinBase extends Controller {
                 $res['tracks'][0]['title'] = "全国地铁换乘线路查询（北、上、广、深、津）";
                 $res['tracks'][0]['description'] = '';
                 $res['tracks'][0]['picUrl'] = 'http://www.91lsme.com/static/index/images/dt2.png';
-                $res['tracks'][0]['url'] = 'http://www.91lsme.com/subway/1.html';
+                $res['tracks'][0]['url'] = 'http://www.91lsme.com/subway';
             } else {
                 $res['contentStr'] = DEFAULT_STRING3 . DEFAULT_STRING;
             }
