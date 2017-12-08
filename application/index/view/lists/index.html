@@ -1,5 +1,8 @@
 {extend name='base'/}
 {block name='content'}
+<style type="text/css">
+
+</style>
 <article>
     <div class="_head category_title">
         <h2>{$headData['title']}：{$headData['name']}</h2>
@@ -38,4 +41,7 @@
     </div>
 </article>
 {/foreach}
+<div class="pagination pagination-sm pull-right">
+    {$articleData->render()}
+</div>
 {/block}
