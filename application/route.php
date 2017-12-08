@@ -17,7 +17,7 @@ return [
         '' => ['index/weixin/index', [], []],
     ],
     '[subway]' => [
-        ':cid' => ['index/subway/index', ['method' => 'get'], ['cid' => '\d+']],
+        '[:cid]' => ['index/subway/index', ['method' => 'get'], ['cid' => '\d+']],
     ],
     '[c]' => [
         ':cate_id' => ['index/lists/index', ['method' => 'get'], ['cate_id' => '\d+']],
