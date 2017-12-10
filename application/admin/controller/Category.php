@@ -22,7 +22,7 @@ class Category extends Common {
     public function store() {
         if (request()->isPost()) {
             $res = $this->db->store(input('post.'));
-            if ($res) {
+            if ($res['valid']) {
                 $this->success($res['msg'], 'index');
                 exit;
             } else {
@@ -35,11 +35,9 @@ class Category extends Common {
 
     // 添加子栏目
     public function addSon() {
-        $rtn = db('ls_wxlocation')->find('o6vu8jrVVL33D8nuvOCq0_HDp-Ho');
-        halt($rtn);
         if (request()->isPost()) {
             $res = $this->db->store(input('post.'));
-            if ($res) {
+            if ($res['valid']) {
                 $this->success($res['msg'], 'index');
                 exit;
             } else {
@@ -48,7 +46,7 @@ class Category extends Common {
             }
         }
 
-        $id = input('param.id');
+        $id = input('param.id/d');
         $data = $this->db->find($id);
         $this->assign('data', $data);
 
@@ -68,7 +66,7 @@ class Category extends Common {
             }
         }
 
-        $id = input('param.id');
+        $id = input('param.id/d');
         $oldData = $this->db->find($id);
         $this->assign('oldData', $oldData);
 
@@ -80,7 +78,7 @@ class Category extends Common {
 
     // 删除
     public function del() {
-        $res = $this->db->del(input('get.id'));
+        $res = $this->db->del(input('get.id/d'));
         if ($res['valid']) {
             $this->success($res['msg'], 'index');
             exit;
