@@ -28,7 +28,7 @@ class Lists extends Common {
                 ->where('a.is_del', 0)
                 ->order('create_time desc')
                 ->field('a.id,a.title,a.create_time,a.author,a.content,a.thumb,a.click_num,a.cid,c.cname')
-                ->paginate(6)->each(function ($v, $k) {
+                ->paginate(8)->each(function ($v, $k) {
                     // 替换掉各种标签 空格 换行符等
                     $tmp = preg_replace(array('/<img(.*?)>/', '/<(.*?)>/', '/<\/(.*?)>/', '/<br \/>/', '/&nbsp;/', '/&lt;(.*?)&gt;/'), '', $v['content']);
                     // 然后在从内容中获取100字摘要
@@ -61,7 +61,7 @@ class Lists extends Common {
                 ->where('a.is_del', 0)
                 ->order('create_time desc')
                 ->field('a.id,a.title,a.create_time,a.author,a.content,a.thumb,a.click_num,a.cid,c.cname')
-                ->paginate(6)->each(function ($v, $k) {
+                ->paginate(8)->each(function ($v, $k) {
                     // 替换掉各种标签 空格 换行符等
                     $tmp = preg_replace(array('/<img(.*?)>/', '/<(.*?)>/', '/<\/(.*?)>/', '/<br \/>/', '/&nbsp;/', '/&lt;(.*?)&gt;/'), '', $v['content']);
                     // 然后在从内容中获取100字摘要
