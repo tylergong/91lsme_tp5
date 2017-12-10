@@ -14,7 +14,7 @@ class Tag extends Common {
     // 标签列表
     public function index() {
         // 查询所有数据 并且每页显示5条数据
-        $tags = $this->db->paginate(6);
+        $tags = $this->db->paginate(8);
         $this->assign('tags', $tags);
         return $this->fetch();
     }
