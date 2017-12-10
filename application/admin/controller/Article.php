@@ -54,7 +54,7 @@ class Article extends Common {
         }
     }
 
-    // 删除到回收站
+    // 放回文章列表（移出回收站）
     public function outToRecycle() {
         $id = input('param.id');
         if ($this->db->save(['is_del' => 0], ['id' => $id])) {
@@ -66,19 +66,19 @@ class Article extends Common {
         }
     }
 
-    // 修改文章是否显示
-    public function changeShow() {
-        if (request()->isAjax()) {
-            $res = $this->db->changeShow(input('post.'));
-            if ($res['valid']) {
-                $this->success($res['msg'], 'index');
-                exit;
-            } else {
-                $this->error($res['msg']);
-                exit;
-            }
-        }
-    }
+//    // 修改文章是否显示
+//    public function changeShow() {
+//        if (request()->isAjax()) {
+//            $res = $this->db->changeShow(input('post.'));
+//            if ($res['valid']) {
+//                $this->success($res['msg'], 'index');
+//                exit;
+//            } else {
+//                $this->error($res['msg']);
+//                exit;
+//            }
+//        }
+//    }
 
     // 编辑
     public function edit() {
@@ -92,7 +92,7 @@ class Article extends Common {
                 exit;
             }
         }
-        $id = input('param.id');
+        $id = input('param.id/d');
 
         // 1、获取分类数据
         $cateData = (new Category())->getAll();
@@ -126,7 +126,7 @@ class Article extends Common {
 
     // 删除文章
     public function del() {
-        $res = $this->db->del(input('post.id'));
+        $res = $this->db->del(input('post.id/d'));
         if ($res['valid']) {
             $this->success($res['msg'], 'recycle');
             exit;
