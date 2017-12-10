@@ -2,9 +2,7 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
-
-class Tag extends Controller {
+class Tag extends Common {
     //
     protected $db;
 

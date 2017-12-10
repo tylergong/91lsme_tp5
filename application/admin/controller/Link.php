@@ -2,9 +2,8 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
-
-class Link extends Controller {
+class Link extends Common {
+    //
     protected $db;
 
     public function _initialize() {
@@ -55,7 +54,7 @@ class Link extends Controller {
     }
 
     // 排序
-    public function changeSort(){
+    public function changeSort() {
         if (request()->isAjax()) {
             $res = $this->db->changeSort(input('post.'));
             if ($res['valid']) {

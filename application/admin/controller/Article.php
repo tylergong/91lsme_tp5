@@ -5,9 +5,8 @@ namespace app\admin\controller;
 use app\common\model\ArticleTag;
 use \app\common\model\Category;
 use \app\common\model\Tag;
-use think\Controller;
 
-class Article extends Controller {
+class Article extends Common {
     protected $db;
 
     public function _initialize() {

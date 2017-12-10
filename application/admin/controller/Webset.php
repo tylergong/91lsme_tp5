@@ -2,9 +2,7 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
-
-class Webset extends Controller {
+class Webset extends Common {
     //
     protected $db;
 
@@ -16,7 +14,7 @@ class Webset extends Controller {
     // 首页
     public function index() {
         $data = $this->db->select();
-        foreach ($data as &$v){
+        foreach ($data as &$v) {
             $v['webset_value'] = htmlspecialchars($v['webset_value']);
         }
         $this->assign('data', $data);
