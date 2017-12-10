@@ -8,18 +8,21 @@ class Article extends Model {
     //
     protected $pk = 'id';
     protected $table = 'ls_article';
-    protected $auto = ['admin_id'];
-    protected $insert = ['create_time'];
-    protected $update = ['up_time'];
+    protected $auto = ['admin_id'];//自动添加
+    protected $insert = ['create_time'];//新增时自动添加字段
+    protected $update = ['up_time'];//修改时自动添加字段
 
+    // 获取用当前用户 ID
     protected function setAdminIdAttr($value) {
         return session('admin.admin_id');
     }
 
+    // 格式化新增时间
     protected function setCreateTimeAttr($value) {
         return date('Y-m-d H:i:s', time());
     }
 
+    // 格式化修改时间
     protected function setUpTimeAttr($value) {
         return date('Y-m-d H:i:s', time());
     }
@@ -31,10 +34,10 @@ class Article extends Model {
             ->where('a.is_del', $is_del)
             ->field('a.id,a.title,a.author,a.create_time,a.is_show,a.click_num,c.cname')
             ->order('a.create_time desc')
-            ->paginate(6);
+            ->paginate(8);
     }
 
-    // 保存
+    //  编辑保存
     public function edit($data) {
         if (!isset($data['tag'])) {
             // 如果未选择标签提示错误
@@ -60,7 +63,7 @@ class Article extends Model {
         }
     }
 
-    // 保存
+    // 新增保存
     public function store($data) {
         if (!isset($data['tag'])) {
             // 如果未选择标签提示错误
@@ -84,22 +87,22 @@ class Article extends Model {
         }
     }
 
-    // 修改文章是否显示
-    public function changeShow($data) {
-        $res = $this->validate([
-            'is_show' => 'require|between:0,1',
-        ], [
-            'is_show.require' => '是否显示不能为空',
-            'is_show.between' => '显示输入1，隐藏输入0',
-        ])->save($data, [$this->pk => $data['id']]);
-        if ($res) {
-            return ['valid' => 1, 'msg' => '修改成功'];
-        } else {
-            return ['valid' => 0, 'msg' => $this->getError()];
-        }
-    }
+//    // 修改文章是否显示
+//    public function changeShow($data) {
+//        $res = $this->validate([
+//            'is_show' => 'require|between:0,1',
+//        ], [
+//            'is_show.require' => '是否显示不能为空',
+//            'is_show.between' => '显示输入1，隐藏输入0',
+//        ])->save($data, [$this->pk => $data['id']]);
+//        if ($res) {
+//            return ['valid' => 1, 'msg' => '修改成功'];
+//        } else {
+//            return ['valid' => 0, 'msg' => $this->getError()];
+//        }
+//    }
 
-    // 删除
+    // 物理删除数据
     public function del($id) {
         if (Article::destroy($id)) {
             // 删除文章标签

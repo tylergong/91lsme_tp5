@@ -11,7 +11,7 @@ class Link extends Model {
 
     // 获取所有
     public function getAll() {
-        return $this->order('orderby desc')->paginate(6);
+        return $this->order('orderby desc')->paginate(8);
     }
 
     // 添加
