@@ -3,7 +3,7 @@
 namespace app\index\controller;
 
 use think\Controller;
-use app\system\controller\HttpHelp;
+use app\common\service\HttpHelp;
 use think\Log;
 
 class WeixinBase extends Controller {
