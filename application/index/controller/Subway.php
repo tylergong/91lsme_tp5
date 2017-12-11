@@ -2,7 +2,7 @@
 
 namespace app\index\controller;
 
-use app\system\controller\PlatformHelp;
+use app\common\service\PlatformHelp;
 
 class Subway extends SubwayBase {
     //
