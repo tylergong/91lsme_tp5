@@ -19,7 +19,7 @@ class Admin extends Model {
 
     // 密码加密模式
     protected function setUpwdAttr($value) {
-        return md5($value);
+        return passwordCode($value, 'ENCODE');
     }
 
     // 格式化新增时间
@@ -36,10 +36,13 @@ class Admin extends Model {
         }
 
         //2、比对用户名和密码是否正确
-        $userInfo = $this->where('uname', $data['uname'])->where('upwd', md5($data['upwd']))->find();
+        $userInfo = $this->where('uname', $data['uname'])->find();
         if (!$userInfo) {
-            return ['valid' => 0, 'msg' => '用户名或密码错误'];
-            //dump($validate->getError());
+            return ['valid' => 0, 'msg' => '用户名不存在'];
+        } else {
+            if ($data['upwd'] != passwordCode($userInfo['upwd'], 'DECODE')) {
+                return ['valid' => 0, 'msg' => '密码错误'];
+            }
         }
 
         //3、将用户信息存入 session
@@ -67,14 +70,14 @@ class Admin extends Model {
         }
 
         //2、比对原始密码是否一致
-        $userInfo = $this->where('id', session('admin.admin_id'))->where('upwd', md5($data['upwd']))->find();
-        if (!$userInfo) {
+        $userInfo = $this->where('id', session('admin.admin_id'))->find();
+        if ($userInfo && $data['upwd'] != passwordCode($userInfo['upwd'], 'DECODE')) {
             return ['valid' => 0, 'msg' => '原始密码不正确'];
         }
 
         //3、修改密码
         $res = $this->save([
-            'upwd' => md5($data['confirm_pwd']),
+            'upwd' => $data['confirm_pwd'],
         ], [$this->pk => session('admin.admin_id')]);
         if ($res) {
             return ['valid' => 1, 'msg' => '密码修改成功'];

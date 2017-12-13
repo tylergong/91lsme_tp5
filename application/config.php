@@ -249,6 +249,9 @@ return [
         'imageW'   => 200,
     ],
 
+    // 管理员加密、解密秘钥
+    'password_key'             =>  '2kdiie8@8yhfj',    // 用户密码加密秘钥
+
     // +----------------------------------------------------------------------
     // | auth 权限验证
     // +----------------------------------------------------------------------
@@ -261,4 +264,7 @@ return [
         'AUTH_RULE' => 'ls_rules',                  // 权限规则表
         'AUTH_USER' => 'ls_admin'                   // 用户信息表
     ],
+
+    // 添加应用函数
+    'extra_file_list'        => [ APP_PATH . 'helper.php', THINK_PATH . 'helper.php', APP_PATH . 'common/function.php'],
 ];
