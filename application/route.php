@@ -25,6 +25,9 @@ return [
     '[t]' => [
         ':tag_id' => ['index/lists/index', ['method' => 'get'], ['tag_id' => '\d+']],
     ],
+    '[article]' => [
+        ':id' => ['index/content/index', ['method' => 'get'], ['id' => '\d+']],
+    ],
     '[a]' => [
         ':id' => ['index/content/index', ['method' => 'get'], ['id' => '\d+']],
     ],
