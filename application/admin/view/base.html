@@ -38,7 +38,7 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <h4 style="display: inline;line-height: 50px;float: left;margin: 0px"><a href="index.html"
+                <h4 style="display: inline;line-height: 50px;float: left;margin: 0px"><a href="{:url('admin/index/index')}"
                                                                                          style="color: white;margin-left: -14px">91lsme后台管理系统</a>
                 </h4>
 
@@ -46,7 +46,8 @@
                     <ul class="nav navbar-nav">
 
                         <li>
-                            <a href="https://www.kancloud.cn/manual/thinkphp5/118003" target="_blank"><i class="fa fa-w fa-file-code-o"></i>
+                            <a href="https://www.kancloud.cn/manual/thinkphp5/118003" target="_blank"><i
+                                    class="fa fa-w fa-file-code-o"></i>
                                 在线文档</a>
                         </li>
                         <li>
@@ -54,7 +55,7 @@
                                     class="fa fa-w fa-hand-o-right"></i> 图标库</a>
                         </li>
                         <!--<li>-->
-                            <!--<a href="http://bbs.houdunwang.com" target="_blank"><i class="fa fa-w fa-forumbee"></i> 论坛讨论</a>-->
+                        <!--<a href="http://bbs.houdunwang.com" target="_blank"><i class="fa fa-w fa-forumbee"></i> 论坛讨论</a>-->
                         <!--</li>-->
                     </ul>
                 </div>
@@ -103,7 +104,7 @@
                 <!--标签管理菜单 start-->
                 <div class="panel-heading" role="button" data-toggle="collapse" href="#collapseExample2"
                      aria-expanded="false" aria-controls="collapseExample">
-                    <h4 class="panel-title">文章管理菜单</h4>
+                    <h4 class="panel-title">标签管理菜单</h4>
                     <a class="panel-collapse" data-toggle="collapse" href="#collapseExample2" aria-expanded="true">
                         <i class="fa fa-chevron-circle-down"></i>
                     </a>
@@ -159,16 +160,26 @@
                 <!--用户管理菜单 start-->
                 <div class="panel-heading" role="button" data-toggle="collapse" href="#collapseExample8"
                      aria-expanded="false" aria-controls="collapseExample">
-                    <h4 class="panel-title">用户管理菜单</h4>
+                    <h4 class="panel-title">权限管理菜单</h4>
                     <a class="panel-collapse" data-toggle="collapse" href="#collapseExample8" aria-expanded="true">
                         <i class="fa fa-chevron-circle-down"></i>
                     </a>
                 </div>
                 <ul class="list-group menus collapse in" id="collapseExample8">
-                    <a href="" class="list-group-item">
-                        <i class="fa fa-male" aria-hidden="true"></i>
+                    <a href="{:url('admin/admin/index')}" class="list-group-item">
+                        <i class="fa fa-user-o" aria-hidden="true"></i>
                         <span class="pull-right" href=""></span>
                         用户列表
+                    </a>
+                    <a href="{:url('admin/group/index')}" class="list-group-item">
+                        <i class="fa fa-group" aria-hidden="true"></i>
+                        <span class="pull-right" href=""></span>
+                        用户组列表
+                    </a>
+                    <a href="{:url('admin/rules/index')}" class="list-group-item">
+                        <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                        <span class="pull-right" href=""></span>
+                        权限列表
                     </a>
                 </ul>
                 <!--用户管理菜单 end-->

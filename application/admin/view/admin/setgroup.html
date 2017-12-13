@@ -1,0 +1,34 @@
+{extend name='base'/}
+{block name='content'}
+<ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
+    <li>
+        <a href=""><i class="fa fa-cogs"></i>
+            用户管理</a>
+    </li>
+    <li class="active">
+        <a href="">设置用户分组</a>
+    </li>
+</ol>
+<ul class="nav nav-tabs" role="tablist">
+    <li><a href="{:url('index')}">用户列表</a></li>
+    <li class="active"><a href="">设置用户分组</a></li>
+</ul>
+<form action="" method="POST" class="form-horizontal" role="form">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">给管理员【{$adminData['uname']}】设置用户分组</h3>
+        </div>
+        <div class="panel-body">
+            <div class="checkbox">
+                {foreach name='groupData' item='vo'}
+                <label>
+                    <input type="checkbox" {if condition="in_array($vo['id'],$accessData)"}checked{/if} name="group_id[]" value="{$vo['id']}">{$vo['gname']}
+                </label>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <input type="text" hidden name="id" value="{:input('param.id')}">
+    <button class="btn btn-primary">提交</button>
+</form>
+{/block}

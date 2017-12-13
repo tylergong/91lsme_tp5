@@ -1,0 +1,70 @@
+{extend name='base'/}
+{block name='content'}
+<ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
+    <li>
+        <a href=""><i class="fa fa-cogs"></i>
+            权限管理</a>
+    </li>
+    <li class="active">
+        <a href="">权限列表</a>
+    </li>
+</ol>
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="">权限列表</a></li>
+    <li><a href="{:url('store')}">添加权限</a></li>
+</ul>
+<form action="" method="post">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th width="10%">编号</th>
+                    <th width="25%">权限名称</th>
+                    <th width="55%">权限标识</th>
+                    <th width="10%">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach name='rules' key='k' item='v'}
+                <tr>
+                    <td>{$v['id']}</td>
+                    <td>{$v['_rname']}</td>
+                    <td>{$v['rules']}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span class="caret"></span></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><a href="{:url('addSon',['id'=>$v['id']])}">添加子权限</a></li>
+                                <li><a href="{:url('edit',['id'=>$v['id']])}">编辑</a></li>
+                                <li class="divider"></li>
+                                <li><a href="javascript:;" onclick="del({$v['id']})">删除</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>
+<div class="pagination pagination-sm pull-right">
+</div>
+<script>
+    function del(id){
+        swal({
+                title: "确定删除ID为"+id+"的权限吗？",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定删除！",
+                closeOnConfirm: false
+            },
+            function(){
+                location.href = "{:url('del')}" + "?id=" + id;
+            });
+    }
+</script>
+{/block}

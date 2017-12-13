@@ -232,20 +232,33 @@ return [
         'setcookie' => true,
     ],
 
-    //分页配置
+    // 分页配置
     'paginate'               => [
         'type'      => 'bootstrap',
         'var_page'  => 'page',
-        'list_rows' => 15,
+        'list_rows' => 8,
     ],
 
     // 验证码设置
     'captcha'               =>  [
         // 验证码位数
-        'length'   => 2,
+        'length'   => 4,
         // 验证码图片高度
         'imageH'   => 50,
         // 验证码图片宽度
         'imageW'   => 200,
-    ]
+    ],
+
+    // +----------------------------------------------------------------------
+    // | auth 权限验证
+    // +----------------------------------------------------------------------
+    'auth_config'           =>  true,               // 是否开启自定义配置文件覆盖
+    'auth'                  =>  [
+        'AUTH_ON' => true,                          // 认证开关
+        'AUTH_TYPE' => 1,                           // 认证方式，1为实时认证；2为登录认证。
+        'AUTH_GROUP' => 'ls_group',                 // 用户组数据表名
+        'AUTH_GROUP_ACCESS' => 'ls_admin_group',    // 用户-用户组关系表
+        'AUTH_RULE' => 'ls_rules',                  // 权限规则表
+        'AUTH_USER' => 'ls_admin'                   // 用户信息表
+    ],
 ];

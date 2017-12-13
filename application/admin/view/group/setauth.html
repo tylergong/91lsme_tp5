@@ -1,0 +1,41 @@
+{extend name='base'/}
+{block name='content'}
+<ol class="breadcrumb" style="background-color: #f9f9f9;padding:8px 0;margin-bottom:10px;">
+    <li>
+        <a href=""><i class="fa fa-cogs"></i>
+            权限管理</a>
+    </li>
+    <li class="active">
+        <a href="">设置分组权限</a>
+    </li>
+</ol>
+<ul class="nav nav-tabs" role="tablist">
+    <li><a href="{:url('index')}">权限列表</a></li>
+    <li class="active"><a href="">设置分组权限</a></li>
+</ul>
+<form action="" method="POST" class="form-horizontal" role="form">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">给分组【{$groupData['gname']}】设置权限</h3>
+        </div>
+        <div class="panel-body">
+            {foreach name='rulesData' item='vo'}
+            <div class="checkbox">
+            {if condition="$vo['_level'] eq 1"}
+                <label>
+                    {$vo['_rname']}
+                </label>
+            {else/}
+                <label>
+                    <input type="checkbox" {if condition="in_array($vo['id'],$accessData)" }checked{/if} name="rules_id[]" value="{$vo['id']}">{$vo['_rname']}
+                </label>
+            {/if}
+            </div>
+            {/foreach}
+
+        </div>
+    </div>
+    <input type="text" hidden name="id" value="{:input('param.id')}">
+    <button class="btn btn-primary">提交</button>
+</form>
+{/block}
