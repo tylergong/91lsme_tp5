@@ -7,9 +7,6 @@ use app\common\model\Category;
 class Lists extends Common {
     //
     public function index() {
-        $headConf = ['title' => '列表页'];
-        $this->assign('_headConf', $headConf);
-
         $cate_id = input('param.cate_id');
         if ($cate_id) {
             // 获取当前分类下所有子集分类
@@ -75,6 +72,12 @@ class Lists extends Common {
                     return $v;
                 });
         }
+
+        if (empty($headData['name'])) {
+            $this->redirect('/');
+        }
+
+        $this->assign('_head_title', $headData['title'] . '_' . $headData['name']);
         $this->assign('headData', $headData);
         $this->assign('articleData', $articleData);
         return $this->fetch();

@@ -5,9 +5,6 @@ namespace app\index\controller;
 class Content extends Common {
     //
     public function index() {
-        $headConf = ['title' => '详情页'];
-        $this->assign('_headConf', $headConf);
-
         $article_id = input('param.id');
         if ($article_id) {
             // 获取文章信息
@@ -35,6 +32,8 @@ class Content extends Common {
         } else {
             $this->redirect('/');
         }
+
+        $this->assign('_head_title', $articleData['title']);
         return $this->fetch();
     }
 }

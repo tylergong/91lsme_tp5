@@ -6,9 +6,6 @@ namespace app\index\controller;
 class Index extends Common {
     //
     public function index() {
-        $headConf = ['title'=>'首页'];
-        $this->assign('_headConf', $headConf);
-
         $articleData = db('ls_article')->alias('a')
             ->join('ls_channel c', 'a.cid=c.id')
             ->where('a.is_del', 0)
@@ -27,6 +24,8 @@ class Index extends Common {
                 ->field('at.tag_id,t.tag_name')
                 ->select();
         }
+
+        $this->assign('_head_title', '首页');
         $this->assign('articleData', $articleData);
         return $this->fetch();
     }
