@@ -33,7 +33,13 @@ class Content extends Common {
             $this->redirect('/');
         }
 
+
         $this->assign('_head_title', $articleData['title']);
+
+        $webSet = $this->loadWebSet();
+        $webSet['description'] = $articleData['title'] . ',' . $webSet['description'];
+        $this->assign('_webSet', $webSet);
+
         return $this->fetch();
     }
 }
