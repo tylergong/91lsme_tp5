@@ -29,7 +29,7 @@ class Lists extends Common {
                     // 替换掉各种标签 空格 换行符等
                     $tmp = preg_replace(array('/<img(.*?)>/', '/<(.*?)>/', '/<\/(.*?)>/', '/<br \/>/', '/&nbsp;/', '/&lt;(.*?)&gt;/'), '', $v['content']);
                     // 然后在从内容中获取100字摘要
-                    $v['digest'] = mb_substr($tmp, 0, 100, 'utf-8');
+                    $v['digest'] = mb_substr($tmp, 0, 200, 'utf-8');
                     // 查询文章标签
                     $v['tags'] = db('ls_article_tag')->alias('at')
                         ->join('ls_tag t', 'at.tag_id=t.id')
@@ -62,7 +62,7 @@ class Lists extends Common {
                     // 替换掉各种标签 空格 换行符等
                     $tmp = preg_replace(array('/<img(.*?)>/', '/<(.*?)>/', '/<\/(.*?)>/', '/<br \/>/', '/&nbsp;/', '/&lt;(.*?)&gt;/'), '', $v['content']);
                     // 然后在从内容中获取100字摘要
-                    $v['digest'] = mb_substr($tmp, 0, 100, 'utf-8');
+                    $v['digest'] = mb_substr($tmp, 0, 200, 'utf-8');
                     // 查询文章标签
                     $v['tags'] = db('ls_article_tag')->alias('at')
                         ->join('ls_tag t', 'at.tag_id=t.id')
