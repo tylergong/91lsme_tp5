@@ -49,11 +49,9 @@
 
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="_menu">
-                        <li {if condition="!input('param.cate_id')" }class="_active" {
-                        /if}><a href="{:url('/')}">首页</a></li>
+                        <li {if condition="!input('param.cate_id')" }class="_active" {/if}><a href="{:url('/')}">首页</a></li>
                         {foreach name='_cateData' key='k' item='v'}
-                        <li {if condition="input('param.cate_id')==$v['id']" }class="_active" {
-                        /if}><a href="{:url('index/lists/index',['cate_id'=>$v['id']])}">{$v['cname']}</a></li>
+                        <li {if condition="input('param.cate_id')==$v['id']" }class="_active" {/if}><a href="{:url('index/lists/index',['cate_id'=>$v['id']])}">{$v['cname']}</a></li>
                         {/foreach}
                     </ul>
                 </div>
