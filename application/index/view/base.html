@@ -49,9 +49,11 @@
 
                 <div class="collapse navbar-collapse" id="example-navbar-collapse">
                     <ul class="_menu">
-                        <li {if condition="!input('param.cate_id')"}class="_active"{/if}><a href="{:url('/')}">首页</a></li>
+                        <li {if condition="!input('param.cate_id')" }class="_active" {
+                        /if}><a href="{:url('/')}">首页</a></li>
                         {foreach name='_cateData' key='k' item='v'}
-                        <li {if condition="input('param.cate_id')==$v['id']"}class="_active"{/if}><a href="{:url('index/lists/index',['cate_id'=>$v['id']])}">{$v['cname']}</a></li>
+                        <li {if condition="input('param.cate_id')==$v['id']" }class="_active" {
+                        /if}><a href="{:url('index/lists/index',['cate_id'=>$v['id']])}">{$v['cname']}</a></li>
                         {/foreach}
                     </ul>
                 </div>
@@ -70,7 +72,7 @@
                 <div class="_widget">
                     <h4>关于91lsme</h4>
                     <div class="_info">
-                        <p>经过很长时间奋战，就要听我说个人网终于建成，还有很多不成熟和欠缺的地方 ，希望大家多多支持和提出好的建议！以后会做的更好 ……</p>
+                        <p>{$_webSet['indexwords']}</p>
                         <p>
                             <i class="glyphicon glyphicon-volume-down"></i>
                             <a href="http://www.91lsme.com" target="_blank">91lsme</a>
@@ -96,7 +98,8 @@
                 <div class="_widget">
                     <h4>听我说微信公众号</h4>
                     <div class="_tag">
-                        <div style="text-align: center"><img src="__STATIC__/index/images/qrcode.png" width="200"/></div>
+                        <div style="text-align: center"><img src="__STATIC__/index/images/qrcode.png" width="200"/>
+                        </div>
                         扫码关注【<b>听我说</b>】微信公众账号或直接添加【<b>listenme1986</b>】<br/>
                         --------------------------<br/>
                         想查<b>天气</b>？回复【天气@城市名】既可。天气状况就能跃然眼前哦~~！<br/><br/>
@@ -118,14 +121,14 @@
             <div class="col-sm-4">
                 <h4 class="_title">最新文章</h4>
                 {foreach name='_articleData' key='k' item='v'}
-                <div id="" class="_single">
+                <div class="_single">
                     <p><a href="{:url('index/content/index',['id'=>$v['id']])}">{$v['title']}</a></p>
                     <time>{$v['create_time']}</time>
                 </div>
                 {/foreach}
             </div>
             <div class="col-sm-4 footer_tag">
-                <div id="">
+                <div>
                     <h4 class="_title">标签云</h4>
                     {foreach name='_tagData' key='k' item='v'}
                     <a href="{:url('index/lists/index',['tag_id'=>$v['id']])}">{$v['tag_name']}</a>
@@ -134,7 +137,7 @@
             </div>
             <div class="col-sm-4">
                 <h4 class="_title">友情链接</h4>
-                <div id="" class="_single">
+                <div class="_single">
                     {foreach name='_linkData' key='k' item='v'}
                     <p><a href="{$v['flink']}" target="_blank">{$v['fname']}</a></p>
                     {/foreach}
@@ -175,7 +178,7 @@
         document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4e12425c4f2ca16acaab6b2a8cdc8fbc' type='text/javascript'%3E%3C/script%3E"));
     </script>
     <script>
-        (function(){
+        (function () {
             var bp = document.createElement('script');
             var curProtocol = window.location.protocol.split(':')[0];
             if (curProtocol === 'https') {
