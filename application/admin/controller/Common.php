@@ -16,7 +16,9 @@ class Common extends Controller {
         }
         $admin_id = session('admin.admin_id');
         $rule = request()->module() . '/' . request()->controller() . '/' . request()->action();
-        //halt($rule);
+        // halt($rule);
+        // 这里可再添加一些无需验证权限的判断
+        // 访问权限验证
         $auth = new Auth();
         if (!$auth->check($rule, $admin_id)) {
             $this->error('你没有权限访问');

@@ -28,16 +28,32 @@ class Article extends Model {
     }
 
     // 获取列表
-    public function getAll($is_del = 0) {
+    public function getAll($where = array('is_del' => 0), $orderby = 'create_time desc') {
+        $allList = db('ls_article')->alias('a')
+            ->join('ls_channel c', 'a.cid = c.id')
+            ->field('a.id,a.title,a.author,a.create_time,a.is_show,a.click_num,c.cname')
+            ->where('a.is_del', $where['is_del']);
+        if (!empty($where['title'])) {
+            $allList = $allList->where('title', 'like', "%{$where['title']}%");
+        }
+        if (!empty($where['cid'])) {
+            $allList = $allList->where('cid', $where['cid']);
+        }
+        $allList = $allList->order('a.' . $orderby . ' ,a.id asc');
+        return $allList;
+    }
+
+    // 获取回收站列表
+    public function getRecycleAll() {
         return db('ls_article')->alias('a')
             ->join('ls_channel c', 'a.cid=c.id')
-            ->where('a.is_del', $is_del)
             ->field('a.id,a.title,a.author,a.create_time,a.is_show,a.click_num,c.cname')
+            ->where('a.is_del', 1)
             ->order('a.create_time desc')
             ->paginate(8);
     }
 
-    //  编辑保存
+    // 编辑保存
     public function edit($data) {
         if (!isset($data['tag'])) {
             // 如果未选择标签提示错误

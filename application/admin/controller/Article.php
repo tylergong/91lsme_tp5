@@ -16,9 +16,52 @@ class Article extends Common {
 
     //文章列表
     public function index() {
-        $field = $this->db->getAll();
+        $title = input('param.title/s');
+        $sort = input('param.sort/s');
+        $order = input('param.order/s');
+        $cid = input('param.cid/d');
+        $where['is_del'] = 0;
+        $where['title'] = $title;
+        $where['cid'] = $cid;
+        $pageParam['query']['title'] = $title;
+        $pageParam['query']['cid'] = $cid;
+        $pageParam['query']['sort'] = $sort;
+        $pageParam['query']['order'] = $order;
+        if ($sort) {
+            $field = $this->db->getAll($where, $sort . ' ' . $order);
+        } else {
+            $field = $this->db->getAll($where);
+        }
+        $field = $field->paginate(8, false, $pageParam);
         $this->assign('field', $field);
+
+        // 获取分类数据
+        $cateData = (new Category())->getAll();
+        $this->assign('cateData', $cateData);
+
         return $this->fetch();
+    }
+
+    // 列表排序
+    public function sort() {
+        if (request()->isPost()) {
+            $title = input('post.title/s');
+            $sort = input('post.sort/s');
+            $order = input('post.order/s');
+            $cid = input('post.cid/d');
+            $where['is_del'] = 0;
+            $where['title'] = $title;
+            $where['cid'] = $cid;
+            $pageParam['query']['title'] = $title;
+            $pageParam['query']['cid'] = $cid;
+            $pageParam['query']['sort'] = $sort;
+            $pageParam['query']['order'] = $order;
+            $pageParam['path'] = url('index');
+            $list = $this->db->getAll($where, $sort . ' ' . $order);
+            $list = $list->paginate(8, false, $pageParam);
+            $page = $list->render();
+            return ['html' => $this->fetch('list', ['field' => $list]), 'page' => $page];
+        }
     }
 
     //添加文章
@@ -119,7 +162,7 @@ class Article extends Common {
 
     // 回收站列表
     public function recycle() {
-        $field = $this->db->getAll(1);
+        $field = $this->db->getRecycleAll();
         $this->assign('field', $field);
         return $this->fetch();
     }

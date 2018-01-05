@@ -1,0 +1,25 @@
+{foreach name='field' key='k' item='v'}
+<tr>
+    <td>{$v['id']}</td>
+    <td>{$v['title']}</td>
+    <td>{$v['author']}</td>
+    <!--<td>-->
+    <!--<input type="text" class="form-control" value="{$v['is_show']}"-->
+    <!--onblur="changeShow(this,{$v['is_show']},{$v['id']})">-->
+    <!--</td>-->
+    <td>{$v['cname']}</td>
+    <td>{$v['click_num']}</td>
+    <td>{$v['create_time']}</td>
+    <td>
+        <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle">操作 <span
+                    class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="{:url('edit',['id'=>$v['id']])}">编辑</a></li>
+                <li class="divider"></li>
+                <li><a href="{:url('delToRecycle',['id'=>$v['id']])}">删除到回收站</a></li>
+            </ul>
+        </div>
+    </td>
+</tr>
+{/foreach}
