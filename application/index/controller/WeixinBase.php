@@ -164,6 +164,11 @@ class WeixinBase extends Controller {
                     $res['type'] = 'text';
                     $res['contentStr'] = $data;
                     break;
+                case "文章":
+                    $data = $this->getArticle($key[1]);
+                    $res['type'] = 'news';
+                    $res['tracks'] = $data;
+                    break;
                 default:
                     $res['type'] = 'text';
                     $res['contentStr'] = $key[0] . "? \n" . DEFAULT_STRING2 . DEFAULT_STRING;
@@ -334,6 +339,35 @@ class WeixinBase extends Controller {
             $str = '对不起，暂时没有查到该快递信息！';
         }
         return $str;
+    }
+
+    /**
+     * 获取 91lsme 相关文章
+     *
+     * @param $word 关键字
+     *
+     * @return array
+     */
+    private function getArticle($words) {
+        $list = db('ls_article')
+            ->field('id,title,content,thumb,click_num')
+            ->where('is_del', 0)
+            ->where('title', 'like', "%{$words}%")
+            ->limit(8)->select();
+        if (is_array($list)) {
+            foreach ($list as $v) {
+                // 替换掉各种标签 空格 换行符等
+                //$tmp = preg_replace(array('/<img(.*?)>/', '/<(.*?)>/', '/<\/(.*?)>/', '/<br \/>/', '/&nbsp;/', '/&lt;(.*?)&gt;/'), '', $v['content']);
+                //$digest = mb_substr($tmp, 0, 50, 'utf-8');
+                $articleArray[] = array(
+                    "title" => $v["title"] . '(点击：' . $v['click_num'] . ')',
+                    "description" => '',
+                    "picUrl" => '',
+                    "url" => 'http://www.91lsme.com/article/' . $v['id'] . '.shtml',
+                );
+            }
+        }
+        return $articleArray;
     }
 
     /**
