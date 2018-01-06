@@ -353,21 +353,34 @@ class WeixinBase extends Controller {
             ->field('id,title,content,thumb,click_num')
             ->where('is_del', 0)
             ->where('title', 'like', "%{$words}%")
-            ->limit(8)->select();
+            ->select();
+        $num = count($list);
+        $articleOnce[] = array(
+            "title" => '搜索关键词：' . $words,
+            "description" => '一共搜索到' . $num . '篇文章,这里顺序显示6篇',
+            "picUrl" => '',
+            "url" => 'http://www.91lsme.com',
+        );
+        $list = db('ls_article')
+            ->field('id,title,content,thumb,click_num,create_time')
+            ->where('is_del', 0)
+            ->where('title', 'like', "%{$words}%")
+            ->order('create_time desc')
+            ->limit(6)->select();
         if (is_array($list)) {
             foreach ($list as $v) {
                 // 替换掉各种标签 空格 换行符等
                 //$tmp = preg_replace(array('/<img(.*?)>/', '/<(.*?)>/', '/<\/(.*?)>/', '/<br \/>/', '/&nbsp;/', '/&lt;(.*?)&gt;/'), '', $v['content']);
                 //$digest = mb_substr($tmp, 0, 50, 'utf-8');
                 $articleArray[] = array(
-                    "title" => $v["title"] . '(点击：' . $v['click_num'] . ')',
+                    "title" => $v["title"] . '【发布时间：' . $v['create_time'] . '】' . ' (点击数：' . $v['click_num'] . ')',
                     "description" => '',
                     "picUrl" => '',
                     "url" => 'http://www.91lsme.com/article/' . $v['id'] . '.shtml',
                 );
             }
         }
-        return $articleArray;
+        return array_merge($articleOnce, $articleArray);
     }
 
     /**
