@@ -51,7 +51,7 @@ class Common extends Controller {
 
     // 获取最新文章数据
     public function loadArticleData() {
-        return db('ls_article')->where('is_del', 0)->where('is_show', 1)
+        return db('ls_article')->where('is_del', 0)
             ->field('id,title,create_time')
             ->order('create_time desc')->limit(3)->select();
     }
