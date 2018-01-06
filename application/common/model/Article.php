@@ -34,10 +34,10 @@ class Article extends Model {
             ->field('a.id,a.title,a.author,a.create_time,a.is_show,a.click_num,c.cname')
             ->where('a.is_del', $where['is_del']);
         if (!empty($where['title'])) {
-            $allList = $allList->where('title', 'like', "%{$where['title']}%");
+            $allList = $allList->where('a.title', 'like', "%{$where['title']}%");
         }
         if (!empty($where['cid'])) {
-            $allList = $allList->where('cid', $where['cid']);
+            $allList = $allList->where('a.cid', $where['cid']);
         }
         $allList = $allList->order('a.' . $orderby . ' ,a.id asc');
         return $allList;
