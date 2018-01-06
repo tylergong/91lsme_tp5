@@ -1,0 +1,51 @@
+{extend name='base'/}
+{block name='content'}
+<style type="text/css">
+    section main article {
+        padding: 1px 50px;
+        margin: 10px 30px;
+    }
+
+    section main article ._digest {
+        margin-top: 10px;
+    }
+
+    section main article ._digest p {
+        font-size: 14px;
+    }
+
+    section main article h1 {
+        font-size: 30px;
+    }
+
+</style>
+<article>
+    <div class="_head">
+        <h2>搜索关键词：{$searchData['words']}</h2>
+        <span>共 {$searchData['total']} 篇文章</span>
+    </div>
+</article>
+{foreach name="searchData['list']" key='k' item='v'}
+<article>
+    <div class="_head">
+        <h1><a href="{:url('index/content/index',['id'=>$v['id']])}" target="_blank">{$v['title']}</a></h1>
+        <span>作者：{$v['author']}</span>
+        •
+        <time pubdate="pubdate" datetime="{$v['create_time']}">{$v['create_time']}</time>
+        •
+        分类：
+        <a href="{:url('index/lists/index',['cate_id'=>$v['cid']])}" target="_blank">{$v['cname']}</a>
+        •
+        <span>阅读次数：{$v['click_num']}</span>
+    </div>
+    <div class="_digest">
+        {if condition="$v['thumb'] neq ''"}
+        <img src="__STATIC__/index/images/1.jpg" class="img-responsive"/>
+        {/if}
+        <p>
+            {$v['digest']|default='无文字内容......'}
+        </p>
+    </div>
+</article>
+{/foreach}
+{/block}
