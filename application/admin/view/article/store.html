@@ -56,15 +56,18 @@
                 <label for="" class="col-sm-2 control-label">缩略图</label>
                 <div class="col-sm-9">
                     <div class="input-group">
-                        <input class="form-control" name="thumb" readonly="" value="">
                         <div class="input-group-btn">
-                            <button onclick="upImagePc(this)" class="btn btn-default" type="button">选择图片</button>
+                            <script src="__STATIC__/admin/Huploadify/jquery.Huploadify.js"
+                                    type="text/javascript"></script>
+                            <link rel="stylesheet" type="text/css" href="__STATIC__/admin/Huploadify/Huploadify.css">
+                            <div id="uploadimg"><!-- 上传图片插件显示区域 --></div>
+                            <input type="hidden" name="thumb" id="thumb" value="">
                         </div>
                     </div>
                     <div class="input-group" style="margin-top:5px;">
-                        <img src="__STATIC__/admin/image/nopic.jpg" class="img-responsive img-thumbnail" width="150">
-                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片"
-                            onclick="removeImg(this)">×</em>
+                        <img src="__STATIC__/admin/image/nopic.jpg" id="img_show" class="img-responsive img-thumbnail" width="150">
+                        <!--<em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片"-->
+                        <!--onclick="removeImg(this)">×</em>-->
                     </div>
                 </div>
             </div>
@@ -101,14 +104,79 @@
     <button class="btn btn-primary" type="submit">确定</button>
 </form>
 <script>
-    //上传图片
-    function upImagePc() {
-
-    }
-    //移除图片
-    function removeImg(obj) {
-        $(obj).prev('img').attr('src', '__STATIC__/admin/image/nopic.jpg');
-        $(obj).parent().prev().find('input').val('');
-    }
+    $(function () {
+        var imgdata = new Array();
+        var up = $('#uploadimg').Huploadify({
+            auto: true,
+            fileTypeExts: '*.jpg; *.jpeg; *.gif; *.png',
+            multi: false,
+            formData: {el: 'certificate'},
+            fileSizeLimit: 3096,
+            fileLimitNum: 5,
+            buttonText: '上传列表图片',
+            fileOldLimitField: 'certificate_field_num',
+            fileNewLimitField: 'certificate_new_field_num',
+            showUploadedPercent: true,
+            showUploadedSize: true,
+            removeTimeout: 9999999,
+            uploader: "{:url('system/component/uploader')}",
+            onUploadStart: function (file) {
+                //console.log("onUploadStart");
+                //console.log(file.name+'开始上传');
+            },
+            onInit: function (obj) {
+                //console.log('onInit');
+                //console.log(obj);
+            },
+            onUploadComplete: function (file, data) {
+                //console.log('onUploadComplete');
+                //console.log(file.name+'上传完成');
+                var temp = eval('(' + data + ')');
+                if (temp.substring(0, 5) == 'error') {
+                    alert('上传失败');
+                    // 隐藏上传区域
+                    $('#fileupload_1_' + file.index).hide();
+                    //$('#fileupload_1_' + file.index).find('.up_filename').eq(0).append('上传失败->');
+                    return false;
+                } else {
+                    // 组合图片路径
+                    var imgurl = temp;
+                    // 存入数组
+                    //imgdata[file.index] = imgurl;
+                    // 设置当前已经上传图片张数
+                    //setUpImgLimitNum(imgdata, up);
+                    // 显示当前上传图片
+                    //$('#fileupload_1_' + file.index + '_show').attr('src', imgurl);
+                    $('#img_show').attr('src', imgurl);
+                    $('#thumb').val(imgurl);
+                    $('#file_upload_' + file.index + '-button').hide();
+                }
+            },
+            onCancel: function (file) {
+                //console.log("onCancel");
+                //console.log(file.name+'删除成功');
+                // 对应存放图片数组设置为空
+                //imgdata[file.index] = '';
+                $('#img_show').attr('src', '__STATIC__/admin/image/nopic.jpg');
+                $('#thumb').val();
+                $('#file_upload_' + file.index + '-button').show();
+            },
+            onClearQueue: function (queueItemCount) {
+                //console.log("onClearQueue");
+                //console.log('有'+queueItemCount+'个文件被删除了');
+            },
+            onDestroy: function () {
+                //console.log("onDestroy");
+            },
+            onSelect: function (file) {
+                //console.log("onSelect");
+                //console.log(file.name+'加入上传队列');
+            },
+            onQueueComplete: function (queueData) {
+                //console.log("onQueueComplete");
+                //console.log('队列中的文件全部上传完成',queueData);
+            },
+        });
+    });
 </script>
 {/block}
